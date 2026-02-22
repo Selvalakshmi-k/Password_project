@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Password Analyzer</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Password Strength Analyzer</h1>
+
+        <form method="POST">
+            <input type="text" name="password" placeholder="Enter password" required>
+            <button type="submit">Analyze</button>
+        </form>
+
+        {% if result %}
+            <div class="result">
+                <h2>Strength: {{ result.strength }}</h2>
+                <p>Score: {{ result.score }}</p>
+
+                <h3>Feedback:</h3>
+                {% if result.feedback %}
+                    <ul>
+                        {% for item in result.feedback %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p style="color: green;">
+                        <b>Great password! No improvements needed ✅</b>
+                    </p>
+                {% endif %}
+
+                <h3>Suggested Strong Passwords:</h3>
+                <ul>
+                    {% for item in result.suggestions %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
